@@ -1,0 +1,11 @@
+boostaFisha
+
+Plan
+
+Commit development, outsource team? 
+
+Timeline impact for project?
+
+Actual fishing?
+
+/dev
