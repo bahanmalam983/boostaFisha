@@ -178,3 +178,23 @@ final class CatchRecord {
 final class Angler {
     private final String address;
     private int baitBalance;
+    private long lastCastBlock;
+    private long lastSeasonIndex;
+    private int claimedThisSeason;
+    private final List<CatchRecord> catchHistory;
+
+    public static final int MAX_CLAIM_PER_SEASON = 750;
+    public static final int CAST_COOLDOWN_BLOCKS = 48;
+    public static final int BAIT_PER_CATCH = 75;
+
+    public Angler(String address) {
+        this.address = address;
+        this.baitBalance = 0;
+        this.lastCastBlock = 0;
+        this.lastSeasonIndex = -1;
+        this.claimedThisSeason = 0;
+        this.catchHistory = new ArrayList<>();
+    }
+
+    public String getAddress() { return address; }
+    public int getBaitBalance() { return baitBalance; }
