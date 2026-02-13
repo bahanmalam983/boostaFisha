@@ -38,3 +38,23 @@ enum FishSpecies {
     public String getDisplayName() { return displayName; }
     public int getMinGrams() { return minGrams; }
     public int getMaxGrams() { return maxGrams; }
+
+    public static FishSpecies byIndex(int i) {
+        for (FishSpecies s : values()) if (s.index == i) return s;
+        return BASS;
+    }
+
+    public static final int SPECIES_COUNT = 12;
+}
+
+enum WeatherCondition {
+    CLEAR(1.0),
+    CLOUDY(0.95),
+    LIGHT_RAIN(0.88),
+    HEAVY_RAIN(0.72),
+    FOG(0.85),
+    WINDY(0.90),
+    STORM(0.55);
+
+    private final double catchMultiplier;
+
