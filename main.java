@@ -258,3 +258,23 @@ final class CatchSlot {
 }
 
 // ============ Lake (fishing venue) ============
+
+final class Lake {
+    private static final int MAX_SLOTS = 96;
+    private final Map<String, CatchSlot> slots = new HashMap<>();
+    private final List<String> slotIdList = new ArrayList<>();
+    private final byte[] catchSeed;
+
+    public Lake(byte[] catchSeed) {
+        this.catchSeed = catchSeed != null ? catchSeed : new byte[] { 0x5e, 0x4d, 0x3c, 0x2b };
+    }
+
+    public int getSlotCount() { return slotIdList.size(); }
+
+    public String getSlotIdAt(int index) {
+        if (index < 0 || index >= slotIdList.size()) return null;
+        return slotIdList.get(index);
+    }
+
+    public CatchSlot getSlot(String slotId) {
+        return slots.get(slotId);
