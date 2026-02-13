@@ -278,3 +278,23 @@ final class Lake {
 
     public CatchSlot getSlot(String slotId) {
         return slots.get(slotId);
+    }
+
+    public boolean addSlot(CatchSlot slot) {
+        if (slot == null || !slot.isFilled() || slots.containsKey(slot.getSlotId())) return false;
+        if (slotIdList.size() >= MAX_SLOTS) return false;
+        slots.put(slot.getSlotId(), slot);
+        slotIdList.add(slot.getSlotId());
+        return true;
+    }
+
+    public byte[] getCatchSeed() { return catchSeed; }
+}
+
+// ============ RNG utility ============
+
+final class ReelRandom {
+    private final long seed;
+    private long state;
+
+    public ReelRandom(long seed) {
