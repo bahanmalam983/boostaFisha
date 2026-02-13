@@ -218,3 +218,23 @@ final class Angler {
         }
     }
 
+    public void addClaimedThisSeason(int amount) {
+        this.claimedThisSeason += amount;
+    }
+
+    public void recordCatch(CatchRecord record) {
+        catchHistory.add(record);
+    }
+
+    public boolean canCast(long currentBlock, long currentSeason) {
+        advanceSeason(currentSeason);
+        if (currentBlock < lastCastBlock + CAST_COOLDOWN_BLOCKS) return false;
+        return claimedThisSeason + BAIT_PER_CATCH <= MAX_CLAIM_PER_SEASON;
+    }
+}
+
+// ============ Catch slot (lake spot) ============
+
+final class CatchSlot {
+    private final String slotId;
+    private final FishSpecies species;
