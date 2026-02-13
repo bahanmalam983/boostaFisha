@@ -238,3 +238,23 @@ final class Angler {
 final class CatchSlot {
     private final String slotId;
     private final FishSpecies species;
+    private final int maxWeightGrams;
+    private final long enlistedAtBlock;
+    private final boolean filled;
+
+    public CatchSlot(String slotId, FishSpecies species, int maxWeightGrams, long enlistedAtBlock, boolean filled) {
+        this.slotId = slotId;
+        this.species = species;
+        this.maxWeightGrams = maxWeightGrams;
+        this.enlistedAtBlock = enlistedAtBlock;
+        this.filled = filled;
+    }
+
+    public String getSlotId() { return slotId; }
+    public FishSpecies getSpecies() { return species; }
+    public int getMaxWeightGrams() { return maxWeightGrams; }
+    public long getEnlistedAtBlock() { return enlistedAtBlock; }
+    public boolean isFilled() { return filled; }
+}
+
+// ============ Lake (fishing venue) ============
