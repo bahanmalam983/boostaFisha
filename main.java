@@ -58,3 +58,23 @@ enum WeatherCondition {
 
     private final double catchMultiplier;
 
+    WeatherCondition(double catchMultiplier) {
+        this.catchMultiplier = catchMultiplier;
+    }
+
+    public double getCatchMultiplier() { return catchMultiplier; }
+
+    public static WeatherCondition random() {
+        return values()[ThreadLocalRandom.current().nextInt(values().length)];
+    }
+}
+
+enum SeasonPhase {
+    SPRING(0),
+    SUMMER(1),
+    AUTUMN(2),
+    WINTER(3);
+
+    private final int index;
+
+    SeasonPhase(int index) { this.index = index; }
