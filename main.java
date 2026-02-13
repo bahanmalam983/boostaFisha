@@ -138,3 +138,23 @@ final class Fish {
         double w = (double) weightGrams / (species.getMaxGrams());
         return (int) (base * w * rarityFactor);
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s %,d g (rarity %.2f)", species.getDisplayName(), weightGrams, rarityFactor);
+    }
+}
+
+// ============ Catch record ============
+
+final class CatchRecord {
+    private final long blockNumber;
+    private final String slotId;
+    private final Fish fish;
+    private final int baitCredits;
+    private final WeatherCondition weather;
+    private final TackleType tackle;
+
+    public CatchRecord(long blockNumber, String slotId, Fish fish, int baitCredits,
+                       WeatherCondition weather, TackleType tackle) {
+        this.blockNumber = blockNumber;
