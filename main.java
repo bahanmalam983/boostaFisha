@@ -118,3 +118,23 @@ enum TackleType {
 
 // ============ Fish model ============
 
+final class Fish {
+    private final FishSpecies species;
+    private final int weightGrams;
+    private final double rarityFactor;
+
+    public Fish(FishSpecies species, int weightGrams, double rarityFactor) {
+        this.species = species;
+        this.weightGrams = Math.max(species.getMinGrams(), Math.min(species.getMaxGrams(), weightGrams));
+        this.rarityFactor = Math.max(0.5, Math.min(1.5, rarityFactor));
+    }
+
+    public FishSpecies getSpecies() { return species; }
+    public int getWeightGrams() { return weightGrams; }
+    public double getRarityFactor() { return rarityFactor; }
+
+    public int baitCredits() {
+        int base = 75;
+        double w = (double) weightGrams / (species.getMaxGrams());
+        return (int) (base * w * rarityFactor);
+    }
