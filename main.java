@@ -98,3 +98,23 @@ enum SeasonPhase {
 
 enum TackleType {
     BASIC(1.0, "Basic Rod"),
+    SPINNING(1.15, "Spinning Rod"),
+    BAITCAST(1.25, "Baitcast Rod"),
+    FLY(1.20, "Fly Rod"),
+    ICE(0.95, "Ice Rod"),
+    SURF(1.30, "Surf Rod");
+
+    private final double weightBonus;
+    private final String label;
+
+    TackleType(double weightBonus, String label) {
+        this.weightBonus = weightBonus;
+        this.label = label;
+    }
+
+    public double getWeightBonus() { return weightBonus; }
+    public String getLabel() { return label; }
+}
+
+// ============ Fish model ============
+
