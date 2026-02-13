@@ -18,3 +18,23 @@ enum FishSpecies {
     CATFISH(6, "Channel Catfish", 1000, 6800),
     TUNA(7, "Bluefin Tuna", 8000, 22000),
     COD(8, "Atlantic Cod", 1500, 4500),
+    FLOUNDER(9, "Summer Flounder", 600, 3200),
+    MACKEREL(10, "Spanish Mackerel", 400, 3800),
+    SNAPPER(11, "Red Snapper", 800, 4200);
+
+    private final int index;
+    private final String displayName;
+    private final int minGrams;
+    private final int maxGrams;
+
+    FishSpecies(int index, String displayName, int minGrams, int maxGrams) {
+        this.index = index;
+        this.displayName = displayName;
+        this.minGrams = minGrams;
+        this.maxGrams = maxGrams;
+    }
+
+    public int getIndex() { return index; }
+    public String getDisplayName() { return displayName; }
+    public int getMinGrams() { return minGrams; }
+    public int getMaxGrams() { return maxGrams; }
