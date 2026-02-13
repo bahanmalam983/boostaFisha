@@ -78,3 +78,23 @@ enum SeasonPhase {
     private final int index;
 
     SeasonPhase(int index) { this.index = index; }
+
+    public int getIndex() { return index; }
+
+    public double speciesBonus(FishSpecies s) {
+        int[][] bonus = {
+            { 110, 95, 105, 100, 115, 90, 100, 85, 95, 100, 105, 100 },
+            { 100, 105, 100, 110, 100, 105, 115, 120, 100, 115, 110, 115 },
+            { 105, 110, 115, 105, 100, 115, 105, 95, 110, 95, 100, 105 },
+            { 90, 85, 95, 90, 80, 85, 95, 75, 105, 90, 85, 90 }
+        };
+        return bonus[index][s.getIndex()] / 100.0;
+    }
+
+    public static SeasonPhase fromSeasonIndex(long seasonIndex) {
+        return values()[(int) (seasonIndex % 4)];
+    }
+}
+
+enum TackleType {
+    BASIC(1.0, "Basic Rod"),
