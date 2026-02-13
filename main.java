@@ -158,3 +158,23 @@ final class CatchRecord {
     public CatchRecord(long blockNumber, String slotId, Fish fish, int baitCredits,
                        WeatherCondition weather, TackleType tackle) {
         this.blockNumber = blockNumber;
+        this.slotId = slotId;
+        this.fish = fish;
+        this.baitCredits = baitCredits;
+        this.weather = weather;
+        this.tackle = tackle;
+    }
+
+    public long getBlockNumber() { return blockNumber; }
+    public String getSlotId() { return slotId; }
+    public Fish getFish() { return fish; }
+    public int getBaitCredits() { return baitCredits; }
+    public WeatherCondition getWeather() { return weather; }
+    public TackleType getTackle() { return tackle; }
+}
+
+// ============ Angler (player) ============
+
+final class Angler {
+    private final String address;
+    private int baitBalance;
