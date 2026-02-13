@@ -198,3 +198,23 @@ final class Angler {
 
     public String getAddress() { return address; }
     public int getBaitBalance() { return baitBalance; }
+    public long getLastCastBlock() { return lastCastBlock; }
+    public long getLastSeasonIndex() { return lastSeasonIndex; }
+    public int getClaimedThisSeason() { return claimedThisSeason; }
+    public List<CatchRecord> getCatchHistory() { return Collections.unmodifiableList(catchHistory); }
+
+    public void creditBait(int amount) {
+        this.baitBalance += amount;
+    }
+
+    public void setLastCastBlock(long block) {
+        this.lastCastBlock = block;
+    }
+
+    public void advanceSeason(long newSeasonIndex) {
+        if (newSeasonIndex > lastSeasonIndex) {
+            lastSeasonIndex = newSeasonIndex;
+            claimedThisSeason = 0;
+        }
+    }
+
