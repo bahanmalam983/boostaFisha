@@ -538,3 +538,23 @@ public final class BoostaFishaGame {
 
     public static void main(String[] args) {
         long genesis = 21_000_000L;
+        byte[] seed = new byte[] { 0x5e, 0x4d, 0x3c, 0x2b, 0x1a, 0x09, (byte) 0xf8, (byte) 0xe7 };
+        BoostaFishaGame game = new BoostaFishaGame(genesis, seed);
+        String angler = "0x7B2c9d4E6f1A0b8c3D5e7F9a2B4c6D8e0F1a3b5";
+        System.out.println("BoostaFisha — Azure Trench fishery simulation");
+        System.out.println("Lake slots: " + game.getLake().getSlotCount());
+        for (int i = 0; i < 5; i++) {
+            String slotId = game.getLake().getSlotIdAt(i);
+            CastResult r = game.castLine(angler, slotId, WeatherCondition.random(), TackleType.SPINNING);
+            if (r.isSuccess()) {
+                System.out.println("Cast " + (i + 1) + ": " + r.getRecord().getFish() + " -> " + r.getBaitCredits() + " bait");
+            } else {
+                System.out.println("Cast " + (i + 1) + ": " + r.getErrorCode());
+            }
+        }
+        Angler a = game.getOrCreateAngler(angler);
+        System.out.println("Angler bait balance: " + a.getBaitBalance());
+        System.out.println("Total casts: " + game.getTotalCasts() + ", total bait claimed: " + game.getTotalBaitClaimed());
+        System.out.println("Summary: " + game.toSummaryJson());
+    }
+}
