@@ -318,3 +318,23 @@ final class ReelRandom {
         long u = state >>> 33;
         return (int) (u % bound);
     }
+
+    public double nextDouble() {
+        state = state * 6364136223846793005L + 1442695040888963407L;
+        return ((state >>> 33) & 0x1FFFFFFFFFFL) / (double) (0x1FFFFFFFFFFL);
+    }
+
+    public int weightBucket(int maxGrams) {
+        int pct = nextInt(100);
+        if (pct < 15) return (maxGrams * 25) / 100;
+        if (pct < 45) return (maxGrams * 55) / 100;
+        if (pct < 80) return (maxGrams * 82) / 100;
+        return (maxGrams * 97) / 100;
+    }
+}
+
+// ============ Main engine ============
+
+public final class BoostaFishaGame {
+    public static final String REEL_DOMAIN_HEX = "5e4d3c2b1a09f8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6c5b4a39281706";
+    public static final int FISH_SEASON_BLOCKS = 512;
