@@ -358,3 +358,23 @@ public final class BoostaFishaGame {
     }
 
     private void seedInitialCatches() {
+        String[] ids = {
+            "catch_0_bass", "catch_1_trout", "catch_2_pike", "catch_3_carp",
+            "catch_4_perch", "catch_5_salmon", "catch_6_catfish", "catch_7_tuna",
+            "catch_8_cod", "catch_9_flounder", "catch_10_mackerel", "catch_11_snapper",
+            "catch_12_sturgeon", "catch_13_bluegill", "catch_14_walleye", "catch_15_crappie",
+            "catch_16_redfish", "catch_17_sardine"
+        };
+        int[] speciesIdx = { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 0, 1, 2, 3, 4, 5 };
+        int[] weights = { 4200, 3100, 5800, 7200, 1800, 4500, 6200, 15000, 3800, 2200, 2600, 4100, 9100, 900, 3400, 1200, 5300, 350 };
+        for (int i = 0; i < ids.length; i++) {
+            FishSpecies s = FishSpecies.byIndex(speciesIdx[i]);
+            lake.addSlot(new CatchSlot(ids[i], s, weights[i], currentBlock, true));
+        }
+    }
+
+    public long getCurrentBlock() { return currentBlock; }
+    public long getCurrentSeason() { return currentSeason; }
+    public long getTotalCasts() { return totalCasts; }
+    public long getTotalBaitClaimed() { return totalBaitClaimed; }
+    public Lake getLake() { return lake; }
