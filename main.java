@@ -298,3 +298,23 @@ final class ReelRandom {
     private long state;
 
     public ReelRandom(long seed) {
+        this.seed = seed;
+        this.state = seed;
+    }
+
+    public void mix(long blockNum, String slotId, String angler, int speciesIndex) {
+        state = state ^ (blockNum * 0x9e3779b97f4a7c15L);
+        state = state ^ slotId.hashCode();
+        state = state ^ (long) angler.hashCode();
+        state = state + speciesIndex * 0x6c078965L;
+        state = (state ^ (state >>> 30)) * 0xbf58476d1ce4e5b9L;
+        state = (state ^ (state >>> 27)) * 0x94d049bb133111ebL;
+        state = state ^ (state >>> 31);
+    }
+
+    public int nextInt(int bound) {
+        if (bound <= 0) return 0;
+        state = state * 6364136223846793005L + 1442695040888963407L;
+        long u = state >>> 33;
+        return (int) (u % bound);
+    }
