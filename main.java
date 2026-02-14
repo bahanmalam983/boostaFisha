@@ -498,3 +498,23 @@ public final class BoostaFishaGame {
             .sorted(Comparator.comparingInt(a -> -getTotalWeightByAngler(a.getAddress())))
             .limit(topN)
             .toList();
+    }
+
+    public String toSummaryJson() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("{\"currentBlock\":").append(currentBlock);
+        sb.append(",\"currentSeason\":").append(currentSeason);
+        sb.append(",\"totalCasts\":").append(totalCasts);
+        sb.append(",\"totalBaitClaimed\":").append(totalBaitClaimed);
+        sb.append(",\"slotCount\":").append(lake.getSlotCount());
+        sb.append(",\"anglerCount\":").append(anglers.size()).append("}");
+        return sb.toString();
+    }
+
+    public List<String> getAllSlotIds() {
+        List<String> out = new ArrayList<>();
+        for (int i = 0; i < lake.getSlotCount(); i++) {
+            String id = lake.getSlotIdAt(i);
+            if (id != null) out.add(id);
+        }
+        return out;
