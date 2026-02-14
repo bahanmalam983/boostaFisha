@@ -398,3 +398,23 @@ public final class BoostaFishaGame {
         if (!angler.canCast(currentBlock, currentSeason))
             return CastResult.cooldownOrCap();
         CatchSlot slot = lake.getSlot(slotId);
+        if (slot == null || !slot.isFilled())
+            return CastResult.slotEmpty();
+        FishSpecies species = slot.getSpecies();
+        ReelRandom rng = new ReelRandom(lake.getCatchSeed().length > 0 ? bytesToLong(lake.getCatchSeed()) : 0x5e4d3c2b1a09f8e7L);
+        rng.mix(currentBlock, slotId, anglerAddress, species.getIndex());
+        int weightGrams = rng.weightBucket(slot.getMaxWeightGrams());
+        if (weightGrams < species.getMinGrams()) weightGrams = species.getMinGrams();
+        if (weightGrams > slot.getMaxWeightGrams()) weightGrams = slot.getMaxWeightGrams();
+        double seasonBonus = SeasonPhase.fromSeasonIndex(currentSeason).speciesBonus(species);
+        double weatherMult = weather.getCatchMultiplier();
+        double tackleMult = tackle.getWeightBonus();
+        double rarity = 0.85 + rng.nextDouble() * 0.30;
+        int adjWeight = (int) (weightGrams * seasonBonus * weatherMult * tackleMult);
+        Fish fish = new Fish(species, adjWeight, rarity);
+        int bait = fish.baitCredits();
+        if (bait > BAIT_CLAIM_PER_CATCH) bait = BAIT_CLAIM_PER_CATCH;
+        angler.advanceSeason(currentSeason);
+        angler.setLastCastBlock(currentBlock);
+        angler.addClaimedThisSeason(BAIT_CLAIM_PER_CATCH);
+        angler.creditBait(bait);
