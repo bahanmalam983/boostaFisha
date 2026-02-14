@@ -458,3 +458,23 @@ public final class BoostaFishaGame {
         public static CastResult cooldownOrCap() {
             return new CastResult(false, "COOLDOWN_OR_CAP", null, 0);
         }
+
+        public boolean isSuccess() { return success; }
+        public String getErrorCode() { return errorCode; }
+        public CatchRecord getRecord() { return record; }
+        public int getBaitCredits() { return baitCredits; }
+    }
+
+    // ============ Demo / CLI ============
+
+    // ============ Stats aggregator ============
+
+    public Map<FishSpecies, Integer> getSpeciesCountByAngler(String anglerAddress) {
+        Map<FishSpecies, Integer> out = new HashMap<>();
+        Angler a = anglers.get(anglerAddress);
+        if (a == null) return out;
+        for (CatchRecord r : a.getCatchHistory()) {
+            FishSpecies s = r.getFish().getSpecies();
+            out.merge(s, 1, Integer::sum);
+        }
+        return out;
