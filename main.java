@@ -338,3 +338,23 @@ final class ReelRandom {
 public final class BoostaFishaGame {
     public static final String REEL_DOMAIN_HEX = "5e4d3c2b1a09f8e7d6c5b4a39281706f5e4d3c2b1a09f8e7d6c5b4a39281706";
     public static final int FISH_SEASON_BLOCKS = 512;
+    public static final int BAIT_CLAIM_PER_CATCH = 75;
+
+    private long currentBlock;
+    private long currentSeason;
+    private final Lake lake;
+    private final Map<String, Angler> anglers;
+    private long totalCasts;
+    private long totalBaitClaimed;
+
+    public BoostaFishaGame(long genesisBlock, byte[] catchSeed) {
+        this.currentBlock = genesisBlock;
+        this.currentSeason = 0;
+        this.lake = new Lake(catchSeed);
+        this.anglers = new HashMap<>();
+        this.totalCasts = 0;
+        this.totalBaitClaimed = 0;
+        seedInitialCatches();
+    }
+
+    private void seedInitialCatches() {
