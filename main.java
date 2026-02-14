@@ -518,3 +518,23 @@ public final class BoostaFishaGame {
             if (id != null) out.add(id);
         }
         return out;
+    }
+
+    public int getNextCastBlockFor(String anglerAddress) {
+        Angler a = anglers.get(anglerAddress);
+        if (a == null) return (int) currentBlock;
+        return (int) (a.getLastCastBlock() + Angler.CAST_COOLDOWN_BLOCKS);
+    }
+
+    public int getRemainingClaimBudgetThisSeason(String anglerAddress) {
+        Angler a = anglers.get(anglerAddress);
+        if (a == null) return Angler.MAX_CLAIM_PER_SEASON;
+        a.advanceSeason(currentSeason);
+        int used = a.getClaimedThisSeason();
+        return Math.max(0, Angler.MAX_CLAIM_PER_SEASON - used);
+    }
+
+    // ============ Demo / CLI ============
+
+    public static void main(String[] args) {
+        long genesis = 21_000_000L;
