@@ -418,3 +418,23 @@ public final class BoostaFishaGame {
         angler.setLastCastBlock(currentBlock);
         angler.addClaimedThisSeason(BAIT_CLAIM_PER_CATCH);
         angler.creditBait(bait);
+        CatchRecord record = new CatchRecord(currentBlock, slotId, fish, bait, weather, tackle);
+        angler.recordCatch(record);
+        totalCasts++;
+        totalBaitClaimed += bait;
+        currentBlock++;
+        return CastResult.success(record, bait);
+    }
+
+    private static long bytesToLong(byte[] b) {
+        long v = 0;
+        for (int i = 0; i < Math.min(8, b.length); i++) v = (v << 8) | (b[i] & 0xff);
+        return v;
+    }
+
+    // ============ Cast result DTO ============
+
+    public static final class CastResult {
+        private final boolean success;
+        private final String errorCode;
+        private final CatchRecord record;
