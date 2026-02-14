@@ -378,3 +378,23 @@ public final class BoostaFishaGame {
     public long getTotalCasts() { return totalCasts; }
     public long getTotalBaitClaimed() { return totalBaitClaimed; }
     public Lake getLake() { return lake; }
+
+    public Angler getOrCreateAngler(String address) {
+        return anglers.computeIfAbsent(address, Angler::new);
+    }
+
+    public void advanceBlocks(long blocks) {
+        this.currentBlock += blocks;
+        long newSeasons = currentBlock / FISH_SEASON_BLOCKS;
+        if (newSeasons > currentSeason) currentSeason = newSeasons;
+    }
+
+    public void advanceSeason() {
+        currentSeason++;
+    }
+
+    public CastResult castLine(String anglerAddress, String slotId, WeatherCondition weather, TackleType tackle) {
+        Angler angler = getOrCreateAngler(anglerAddress);
+        if (!angler.canCast(currentBlock, currentSeason))
+            return CastResult.cooldownOrCap();
+        CatchSlot slot = lake.getSlot(slotId);
