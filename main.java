@@ -438,3 +438,23 @@ public final class BoostaFishaGame {
         private final boolean success;
         private final String errorCode;
         private final CatchRecord record;
+        private final int baitCredits;
+
+        private CastResult(boolean success, String errorCode, CatchRecord record, int baitCredits) {
+            this.success = success;
+            this.errorCode = errorCode;
+            this.record = record;
+            this.baitCredits = baitCredits;
+        }
+
+        public static CastResult success(CatchRecord record, int baitCredits) {
+            return new CastResult(true, null, record, baitCredits);
+        }
+
+        public static CastResult slotEmpty() {
+            return new CastResult(false, "SLOT_EMPTY", null, 0);
+        }
+
+        public static CastResult cooldownOrCap() {
+            return new CastResult(false, "COOLDOWN_OR_CAP", null, 0);
+        }
