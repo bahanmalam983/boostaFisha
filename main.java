@@ -478,3 +478,23 @@ public final class BoostaFishaGame {
             out.merge(s, 1, Integer::sum);
         }
         return out;
+    }
+
+    public int getTotalWeightByAngler(String anglerAddress) {
+        Angler a = anglers.get(anglerAddress);
+        if (a == null) return 0;
+        return a.getCatchHistory().stream().mapToInt(r -> r.getFish().getWeightGrams()).sum();
+    }
+
+    public List<Angler> getLeaderboardByBait(int topN) {
+        return anglers.values().stream()
+            .sorted(Comparator.comparingInt(Angler::getBaitBalance).reversed())
+            .limit(topN)
+            .toList();
+    }
+
+    public List<Angler> getLeaderboardByTotalWeight(int topN) {
+        return anglers.values().stream()
+            .sorted(Comparator.comparingInt(a -> -getTotalWeightByAngler(a.getAddress())))
+            .limit(topN)
+            .toList();
